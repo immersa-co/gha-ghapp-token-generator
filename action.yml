@@ -1,0 +1,23 @@
+name: "Github App Token Generator"
+description: "Generate a Github App Token to call Github APIs"
+author: "Surat Mukker"
+inputs:
+  privateKey:
+    description: "Private Key to generate the token for"
+    required: true
+  appId:
+    description: "App Id of the App that private Key belongs to"
+    required: true
+  installId:
+    description: "Github App InstallationId, the token is going to make calls to manage these resources"
+    required: true
+  duration:
+    description: "Duration the token will be valid for in minutes, default value is 10 minutes"
+    required: false
+    default: 10
+outputs:
+  ghaToken:
+    description: "Token valid for duration above"
+runs:
+  using: "docker"
+  image: "Dockerfile"

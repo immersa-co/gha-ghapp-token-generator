@@ -1,0 +1,23 @@
+name: Integration Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Self test
+        id: self-test
+        uses: imsurat/gha-ghapp-token-generator@main
+        with:
+          privateKey: ${{ secrets.GH_APP_KEY }}
+          appId: ${{ secrets.GH_APP_ID }}
+          installId: ${{ secrets.GH_APP_INSTALL_ID }}
+
+      - name: Validate Token
+        env:
+          GH_TOKEN: ${{ steps.self-test.outputs.ghaToken}}
+        run: |
+          curl -H "Authorization: token $GH_TOKEN" -H 'Accept: application/vnd.github.v3.raw' -O  -L https://api.github.com/repos/imsurat/gha-ghapp-token-generator/contents/tests/readmetotest.txt
+          test "`cat readmetotest.txt`" == "`cat tests/readmetotest.txt`"; echo $?
