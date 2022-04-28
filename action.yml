@@ -19,5 +19,7 @@ outputs:
   ghaToken:
     description: "Token valid for duration above"
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "composite"
+  steps:
+    - run: echo "::set-output name=ghaToken::$(gha_token_generator.sh)"
+      shell: bash
