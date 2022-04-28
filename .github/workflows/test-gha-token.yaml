@@ -9,7 +9,7 @@ jobs:
 
       - name: Self test
         id: self-test
-        uses: imsurat/gha-ghapp-token-generator@main
+        uses: immersa-co/gha-ghapp-token-generator@main
         with:
           privateKey: ${{ secrets.GH_APP_KEY }}
           appId: ${{ secrets.GH_APP_ID }}
