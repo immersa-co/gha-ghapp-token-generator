@@ -18,6 +18,16 @@ inputs:
 outputs:
   ghaToken:
     description: "Token valid for duration above"
+    value: ${{ steps.fetch_gha_token.outputs.ghaToken }}
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "composite"
+  steps:
+    - id: fetch_gha_token
+      run: |
+        echo "::set-output name=ghaToken::$(echo $($GITHUB_ACTION_PATH/gha_token_generator.sh))"
+      env:
+        PRIVATEKEY: ${{inputs.privateKey}}
+        APPID: ${{inputs.appId}}
+        INSTALLID: ${{inputs.installId}}
+        DURATION: ${{inputs.duration}}
+      shell: bash

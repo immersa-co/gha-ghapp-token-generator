@@ -3,4 +3,6 @@ export INPUT_APPID=191773
 export INPUT_INSTALLID=25000618
 export INPUT_DURATION=10
 
-python3 main.py
+#python3 ../main.py
+
+../gha_token_generator.sh
