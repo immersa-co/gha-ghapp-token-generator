@@ -24,7 +24,8 @@ runs:
   steps:
     - id: fetch_gha_token
       run: |
-        echo "::set-output name=ghaToken::$(echo $($GITHUB_ACTION_PATH/gha_token_generator.sh))"
+        ghaToken=$($GITHUB_ACTION_PATH/gha_token_generator.sh)
+        echo "ghaToken=$ghaToken" >> $GITHUB_OUTPUT
       env:
         PRIVATEKEY: ${{inputs.privateKey}}
         APPID: ${{inputs.appId}}
